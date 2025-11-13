@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,12 +30,53 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Guides", href: "/guides" },
+    { label: "24/7 Chat", href: "/chat" },
+    { label: "Insurance", href: "/insurance" },
+  ];
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="min-h-screen bg-background text-foreground">
+          <header className="border-b bg-background">
+            <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+              <div className="text-lg font-semibold tracking-tight">
+                SDG Support
+              </div>
+
+              <NavigationMenu viewport={false} className="flex-1 justify-end">
+                <NavigationMenuList className="gap-6 text-sm font-medium">
+                  {navLinks.map((link) => (
+                    <NavigationMenuItem key={link.href}>
+                      <NavigationMenuLink
+                        href={link.href}
+                        className="text-muted-foreground transition-colors hover:text-foreground data-[active=true]:text-foreground"
+                      >
+                        {link.label}
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  ))}
+
+                  <NavigationMenuItem>
+                    <NavigationMenuLink
+                      href="/sign-in"
+                      className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                    >
+                      Sign in
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
+          </header>
+
+          <main className="mx-auto max-w-6xl px-6 py-12">{children}</main>
+        </div>
       </body>
     </html>
   );
