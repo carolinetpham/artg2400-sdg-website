@@ -202,7 +202,7 @@ export default function ChatPage() {
                   href={item.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="block break-words text-primary underline underline-offset-4"
+                  className="block wrap-break-word text-primary underline underline-offset-4"
                 >
                   See resource
                 </a>

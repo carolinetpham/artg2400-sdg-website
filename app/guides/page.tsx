@@ -214,7 +214,7 @@ export default function GuidesPage() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Open UHCS appointment request for ${request.label} in a new tab`}
-                className="mt-3 block break-words text-xs font-semibold text-primary underline underline-offset-4"
+                className="mt-3 block wrap-break-word text-xs font-semibold text-primary underline underline-offset-4"
               >
                 Open official UHCS form
               </a>
@@ -258,7 +258,7 @@ export default function GuidesPage() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Open ${action.label} in a new tab`}
-                    className="mt-2 block break-words text-xs font-semibold text-primary underline underline-offset-4"
+                    className="mt-2 block wrap-break-word text-xs font-semibold text-primary underline underline-offset-4"
                   >
                     View official resource
                   </a>

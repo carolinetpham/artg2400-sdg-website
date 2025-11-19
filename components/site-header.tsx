@@ -33,7 +33,7 @@ export function SiteHeader() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-linear-to-r from-background/95 to-card/90 shadow-[0_10px_40px_-25px_rgba(18,34,23,0.6)] backdrop-blur supports-[backdrop-filter]:bg-card/90">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-linear-to-r from-background/95 to-card/90 shadow-[0_10px_40px_-25px_rgba(18,34,23,0.6)] backdrop-blur supports-backdrop-filter:bg-card/90">
       <div className="mx-auto w-full max-w-6xl px-4 py-3 md:py-4 lg:px-6">
         <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-card/90 px-4 py-2.5 shadow-sm md:px-6">
           <motion.div
@@ -134,7 +134,7 @@ export function SiteHeader() {
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -8, height: 0 }}
             transition={{ type: "spring", stiffness: 150, damping: 26 }}
-            className="border-t border-border/60 bg-gradient-to-b from-card to-background pb-4 pt-3 md:hidden"
+            className="border-t border-border/60 bg-linear-to-b from-card to-background pb-4 pt-3 md:hidden"
           >
             <div className="mx-auto max-w-6xl px-4 lg:px-6">
               <nav className="flex flex-col gap-4 text-sm font-medium">

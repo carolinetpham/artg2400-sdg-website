@@ -309,7 +309,7 @@ export default function InsurancePage() {
                   href={item.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-1 inline-block break-words text-primary underline underline-offset-4"
+                  className="mt-1 inline-block wrap-break-word text-primary underline underline-offset-4"
                 >
                   Learn more
                 </a>
@@ -359,7 +359,7 @@ export default function InsurancePage() {
                   href={item.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-1 block break-words text-primary underline underline-offset-4"
+                  className="mt-1 block wrap-break-word text-primary underline underline-offset-4"
                 >
                   {item.link}
                 </a>
