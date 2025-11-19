@@ -33,9 +33,9 @@ export function SiteHeader() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-linear-to-r from-background/95 to-card/90 shadow-[0_10px_40px_-25px_rgba(18,34,23,0.6)] backdrop-blur supports-backdrop-filter:bg-card/90">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-linear-to-b from-white/95 via-white/90 to-background/85 shadow-[0_10px_35px_-30px_rgba(18,34,23,0.45)] backdrop-blur supports-backdrop-filter:bg-white/90">
       <div className="mx-auto w-full max-w-6xl px-4 py-3 md:py-4 lg:px-6">
-        <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-card/90 px-4 py-2.5 shadow-sm md:px-6">
+        <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-white/95 px-4 py-2.5 shadow-sm md:px-6">
           <motion.div
             whileHover={{ y: -1 }}
             transition={{ type: "spring", stiffness: 200, damping: 30 }}
@@ -73,14 +73,14 @@ export function SiteHeader() {
                           href={link.href}
                           data-active={isActive}
                           className={cn(
-                            "relative overflow-hidden rounded-full px-4 py-2 text-muted-foreground transition-colors hover:text-foreground",
+                            "relative overflow-hidden rounded-full px-4 py-2 text-foreground/70 transition-colors hover:bg-secondary/70 hover:text-foreground",
                             "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none"
                           )}
                         >
                           {isActive ? (
                             <motion.span
                               layoutId="nav-highlight"
-                              className="absolute inset-0 rounded-full bg-muted/90 shadow-sm"
+                              className="absolute inset-0 rounded-full bg-secondary/80 shadow-sm"
                               transition={{
                                 type: "spring",
                                 stiffness: 260,
@@ -115,7 +115,7 @@ export function SiteHeader() {
           <motion.button
             type="button"
             onClick={toggleMenu}
-            className="inline-flex items-center justify-center rounded-full border border-input bg-card/90 p-2 text-foreground shadow-sm transition-colors hover:bg-accent/70 hover:text-accent-foreground md:hidden"
+            className="inline-flex items-center justify-center rounded-full border border-input bg-white/95 p-2 text-foreground shadow-sm transition-colors hover:bg-secondary/70 hover:text-foreground md:hidden"
             aria-label="Toggle navigation menu"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav"
@@ -134,7 +134,7 @@ export function SiteHeader() {
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -8, height: 0 }}
             transition={{ type: "spring", stiffness: 150, damping: 26 }}
-            className="border-t border-border/60 bg-linear-to-b from-card to-background pb-4 pt-3 md:hidden"
+            className="border-t border-border/60 bg-linear-to-b from-white to-background/90 pb-4 pt-3 md:hidden"
           >
             <div className="mx-auto max-w-6xl px-4 lg:px-6">
               <nav className="flex flex-col gap-4 text-sm font-medium">
@@ -153,12 +153,12 @@ export function SiteHeader() {
                         href={link.href}
                         onClick={closeMenu}
                         className={cn(
-                          "flex items-center justify-between rounded-2xl px-4 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                          isActive && "bg-muted text-foreground shadow-sm"
+                          "flex items-center justify-between rounded-2xl px-4 py-2 text-muted-foreground transition-colors hover:bg-secondary/80 hover:text-foreground",
+                          isActive && "bg-secondary/90 text-foreground shadow-sm"
                         )}
                       >
                         <span>{link.label}</span>
-                        <ArrowUpRight className="size-3.5 text-muted-foreground/70" />
+                        <ArrowUpRight className="size-3.5 text-foreground/60" />
                       </Link>
                     </motion.div>
                   );
