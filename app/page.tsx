@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const appointment = {
   title: "ConnectorCare physical (external)",
   date: "Tue, Sept 9",
@@ -32,61 +36,23 @@ const supportTeam = [
   },
 ];
 
-const coverageFacts = [
-  "Massachusetts requires every degree-seeking student to carry comparable health insurance.",
-  "NEU Student Health Plan: $2,849 for Sept 1, 2025 – Aug 31, 2026.",
-  "Tax credits plus ConnectorCare can drop monthly premiums close to $0 when you qualify.",
-  "Staying on a parent/guardian plan is allowed until age 26 if benefits meet MA standards.",
-];
-
-const barrierNotes = [
-  "Balancing tuition, housing, and a $2.8K health plan forces many students to delay care.",
-  "Out-of-state and international students often struggle to understand MassHealth, ConnectorCare, or ACA rules.",
-  "Networks vary per plan, so it’s tough to know where you can book therapy, dental, or urgent visits.",
-  "CampusCare supports SDG 3.8: advancing universal health coverage with guidance + human help.",
-];
-
-const uhcsResources = [
-  {
-    title: "UHCS Services",
-    detail:
-      "UHCS (uhcs.northeastern.edu) focuses on same-day care, immunizations, travel consults, and triage. Routine physicals + ongoing primary care are referred to community partners.",
-    link: "https://uhcs.northeastern.edu/",
-  },
-  {
-    title: "UHCS Appointments",
-    detail:
-      "Before external visits, submit the UHCS appointment form so they can advise on next steps or provide referrals to clinics like Fenway Health or Atrius Health.",
-    link: "https://uhcs.northeastern.edu/appointments/",
-  },
-];
-
-const maLinks = [
-  {
-    title: "Massachusetts Health Connector",
-    detail:
-      "Shop ConnectorCare plans, calculate premium tax credits, and confirm which plans waive deductibles for students.",
-    link: "https://www.mahealthconnector.org/",
-  },
-  {
-    title: "MassHealth (Medicaid) Application",
-    detail:
-      "See eligibility rules, required documents, and how to submit an online or paper MassHealth application.",
-    link: "https://www.mass.gov/how-to/apply-for-masshealth",
-  },
-  {
-    title: "NEU Student Health Plan (SHP)",
-    detail:
-      "Review the $2,849 annual premium, coverage levels, and waiver instructions for Northeastern’s SHP.",
-    link: "https://uhcs.northeastern.edu/insurance/",
-  },
-];
+const fadeInUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.45, delay },
+});
 
 export default function Home() {
   return (
-    <section className="space-y-12">
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45 }}
+      className="space-y-12"
+    >
       <div className="grid gap-6 lg:grid-cols-[2fr,3fr]">
-        <article className="rounded-3xl border bg-muted/20 p-8">
+        <motion.article {...fadeInUp(0)} className="rounded-3xl border bg-muted/20 p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
             Upcoming appointment
           </p>
@@ -106,6 +72,8 @@ export default function Home() {
             UHCS does not complete annual physicals on-site; per{" "}
             <a
               href="https://uhcs.northeastern.edu/appointments/"
+              target="_blank"
+              rel="noreferrer"
               className="text-primary underline underline-offset-4"
             >
               UHCS appointment guidance
@@ -114,21 +82,24 @@ export default function Home() {
             referral.
           </p>
           <div className="mt-6 rounded-2xl border bg-background/80 p-5">
-            <p className="text-sm font-semibold text-foreground">
-              Prep checklist
-            </p>
-            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+            <p className="text-sm font-semibold text-foreground">Prep checklist</p>
+            <ul className="mt-3 list-none space-y-2 text-sm text-muted-foreground">
               {appointment.prep.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
+                <li key={item} className="flex items-start gap-2">
+                  <span aria-hidden className="text-base leading-none text-primary">
+                    •
+                  </span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
-        </article>
+        </motion.article>
 
-        <article className="rounded-3xl border bg-background p-8">
+        <motion.article
+          {...fadeInUp(0.05)}
+          className="rounded-3xl border bg-background p-8"
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
@@ -144,9 +115,10 @@ export default function Home() {
           </div>
 
           <div className="mt-6 space-y-4">
-            {supportTeam.map((person) => (
-              <div
+            {supportTeam.map((person, index) => (
+              <motion.div
                 key={person.name}
+                {...fadeInUp(0.08 + index * 0.03)}
                 className="rounded-2xl border bg-muted/40 p-4 shadow-sm"
               >
                 <div className="flex items-center justify-between gap-3">
@@ -163,91 +135,11 @@ export default function Home() {
                 <p className="mt-3 text-sm text-muted-foreground">
                   {person.detail}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </article>
+        </motion.article>
       </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <article className="rounded-3xl border bg-background p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-            Coverage reminders
-          </p>
-          <h3 className="mt-3 text-xl font-semibold">
-            Massachusetts & NEU requirements
-          </h3>
-          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-            {coverageFacts.map((fact) => (
-              <li key={fact} className="flex gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-primary" />
-                <span>{fact}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-
-        <article className="rounded-3xl border bg-muted/10 p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-            Why this matters
-          </p>
-          <h3 className="mt-3 text-xl font-semibold">
-            Barriers we actively solve
-          </h3>
-          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-            {barrierNotes.map((note) => (
-              <li key={note} className="flex gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-primary" />
-                <span>{note}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-      </div>
-
-      <article className="rounded-3xl border bg-background/70 p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-          UHCS quick links
-        </p>
-        <h3 className="mt-3 text-xl font-semibold">Know what UHCS handles vs. external care</h3>
-        <div className="mt-4 space-y-4 text-sm text-muted-foreground">
-          {uhcsResources.map((item) => (
-            <div key={item.title}>
-              <p className="font-semibold text-foreground">{item.title}</p>
-              <p>{item.detail}</p>
-              <a
-                href={item.link}
-                className="text-primary underline underline-offset-4"
-              >
-                {item.link}
-              </a>
-            </div>
-          ))}
-        </div>
-      </article>
-
-      <article className="rounded-3xl border bg-muted/15 p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-          Massachusetts resources
-        </p>
-        <h3 className="mt-3 text-xl font-semibold">
-          Bookmark these official links for coverage + appointments
-        </h3>
-        <ul className="mt-4 space-y-4 text-sm text-muted-foreground">
-          {maLinks.map((item) => (
-            <li key={item.title}>
-              <p className="font-semibold text-foreground">{item.title}</p>
-              <p>{item.detail}</p>
-              <a
-                href={item.link}
-                className="text-primary underline underline-offset-4"
-              >
-                {item.link}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </article>
-    </section>
+    </motion.section>
   );
 }

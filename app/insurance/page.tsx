@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const studentPlan = {
   name: "NEU Student Health Plan",
   policy: "Policy #: SHP-2025-NEU",
@@ -17,7 +21,7 @@ const reformBenefits = [
   },
   {
     text: "Tax credits can apply every month when you enroll via the Massachusetts Health Connector.",
-    link: "https://www.mahealthconnector.org/how-to-pay-your-premium",
+    link: "https://www.mahealthconnector.org/taxes/aptc-and-your-taxes",
   },
   {
     text: "ConnectorCare plans keep premiums low with $0 deductibles and limited co-pays.",
@@ -25,7 +29,7 @@ const reformBenefits = [
   },
   {
     text: "You can apply online to check MassHealth, tax credit, or ConnectorCare eligibility in one place.",
-    link: "https://www.mahealthconnector.org/how-to-apply",
+    link: "https://www.mahealthconnector.org/help-center-answers-category/eligibility",
   },
 ];
 
@@ -37,6 +41,11 @@ const confusionPoints = [
 ];
 
 const contacts = [
+  {
+    title: "CampusCare Coordinators",
+    info: "Chat 24/7 in-app for personalized navigation and support",
+    link: "/chat",
+  },
   {
     title: "Health Connector Help Center",
     info: "MassHealth, ConnectorCare, and premium tax credit questions",
@@ -55,19 +64,26 @@ const contacts = [
   {
     title: "NEU Student Health Plan Office",
     info: "Billing, waivers, and proof-of-coverage letters",
-    link: "mailto:studenthealthplan@northeastern.edu",
-  },
-  {
-    title: "CampusCare Coordinators",
-    info: "Chat 24/7 in-app for personalized navigation and support",
-    link: "/chat",
+    link: "mailto:NUSHP@northeastern.edu",
   },
 ];
 
+const fadeIn = (delay = 0) => ({
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.35, delay },
+});
+
 export default function InsurancePage() {
   return (
-    <section className="space-y-12">
-      <div>
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-12"
+    >
+      <motion.div {...fadeIn()}>
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
           Insurance
         </p>
@@ -79,10 +95,13 @@ export default function InsurancePage() {
           student to participate in a qualifying plan. Use this page like your
           card plus a mini knowledge base.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <article className="rounded-3xl border bg-background p-6 shadow-sm">
+        <motion.article
+          {...fadeIn(0.05)}
+          className="rounded-3xl border bg-background p-6 shadow-sm"
+        >
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
             Your insurance information
           </p>
@@ -90,10 +109,12 @@ export default function InsurancePage() {
           <p className="mt-1 text-sm text-muted-foreground">{studentPlan.policy}</p>
           <p className="mt-2 text-lg font-semibold">{studentPlan.premium}</p>
           <p className="text-sm text-muted-foreground">{studentPlan.term}</p>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+          <ul className="mt-4 list-none space-y-2 text-sm text-muted-foreground">
             {studentPlan.includes.map((item) => (
-              <li key={item} className="flex gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-primary" />
+              <li key={item} className="flex items-start gap-2">
+                <span aria-hidden className="text-base leading-none text-primary">
+                  •
+                </span>
                 <span>{item}</span>
               </li>
             ))}
@@ -106,9 +127,12 @@ export default function InsurancePage() {
               Request proof of coverage
             </button>
           </div>
-        </article>
+        </motion.article>
 
-        <article className="rounded-3xl border bg-muted/15 p-6">
+        <motion.article
+          {...fadeIn(0.1)}
+          className="rounded-3xl border bg-muted/15 p-6"
+        >
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
             Add insurance
           </p>
@@ -128,10 +152,10 @@ export default function InsurancePage() {
           <button className="mt-5 w-full rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-md">
             Upload coverage proof
           </button>
-        </article>
+        </motion.article>
       </div>
 
-      <article className="rounded-3xl border bg-background p-6">
+      <motion.article {...fadeIn(0.15)} className="rounded-3xl border bg-background p-6">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
           More information
         </p>
@@ -141,15 +165,19 @@ export default function InsurancePage() {
         <p className="mt-2 text-sm text-muted-foreground">
           The Affordable Care Act (ACA) opened multiple low-cost paths:
         </p>
-        <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+        <ul className="mt-4 list-none space-y-3 text-sm text-muted-foreground">
           {reformBenefits.map((item) => (
-            <li key={item.text} className="flex gap-3">
-              <span className="mt-1 inline-block h-2 w-2 rounded-full bg-primary" />
+            <li key={item.text} className="flex items-start gap-2">
+              <span aria-hidden className="text-base leading-none text-primary">
+                •
+              </span>
               <span>
                 {item.text}{" "}
                 <a
                   href={item.link}
-                  className="text-primary underline underline-offset-4"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1 inline-block break-words text-primary underline underline-offset-4"
                 >
                   Learn more
                 </a>
@@ -157,20 +185,25 @@ export default function InsurancePage() {
             </li>
           ))}
         </ul>
-      </article>
+      </motion.article>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <article className="rounded-3xl border bg-muted/15 p-6">
+        <motion.article
+          {...fadeIn(0.18)}
+          className="rounded-3xl border bg-muted/15 p-6"
+        >
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
             Common pain points
           </p>
           <h2 className="mt-3 text-xl font-semibold">
             Why insurance still feels confusing
           </h2>
-          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+          <ul className="mt-4 list-none space-y-3 text-sm text-muted-foreground">
             {confusionPoints.map((item) => (
-              <li key={item} className="flex gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-primary" />
+              <li key={item} className="flex items-start gap-2">
+                <span aria-hidden className="text-base leading-none text-primary">
+                  •
+                </span>
                 <span>{item}</span>
               </li>
             ))}
@@ -179,9 +212,9 @@ export default function InsurancePage() {
             Our goal ties to SDG 3.8—advancing universal health coverage by
             making enrollment, usage, and navigation understandable.
           </p>
-        </article>
+        </motion.article>
 
-        <article className="rounded-3xl border bg-background p-6">
+        <motion.article {...fadeIn(0.22)} className="rounded-3xl border bg-background p-6">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
             Still confused?
           </p>
@@ -193,15 +226,17 @@ export default function InsurancePage() {
                 <p>{item.info}</p>
                 <a
                   href={item.link}
-                  className="text-primary underline underline-offset-4"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1 block break-words text-primary underline underline-offset-4"
                 >
                   {item.link}
                 </a>
               </li>
             ))}
           </ul>
-        </article>
+        </motion.article>
       </div>
-    </section>
+    </motion.section>
   );
 }

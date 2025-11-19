@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const liveSpecialists = [
   {
@@ -104,6 +105,13 @@ function useFakeResponder() {
   );
 }
 
+const fadeIn = (delay = 0) => ({
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.35, delay },
+});
+
 export default function ChatPage() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -128,8 +136,13 @@ export default function ChatPage() {
   };
 
   return (
-    <section className="space-y-10">
-      <div>
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-10"
+    >
+      <motion.div {...fadeIn()}>
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
           24/7 Assistance
         </p>
@@ -141,12 +154,13 @@ export default function ChatPage() {
           answer coverage questions, schedule care, or decode ConnectorCare and
           MassHealth rules for you.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {liveSpecialists.map((person) => (
-          <article
+        {liveSpecialists.map((person, index) => (
+          <motion.article
             key={person.name}
+            {...fadeIn(0.05 * index)}
             className="rounded-3xl border bg-background/80 p-5 shadow-sm"
           >
             <div className="flex items-center justify-between">
@@ -164,26 +178,33 @@ export default function ChatPage() {
             <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               {person.channel}
             </p>
-          </article>
+          </motion.article>
         ))}
       </div>
 
-      <article className="rounded-3xl border bg-muted/15 p-6">
+      <motion.article
+        {...fadeIn(0.1)}
+        className="rounded-3xl border bg-muted/15 p-6"
+      >
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
           How we help in real time
         </p>
         <h2 className="mt-3 text-2xl font-semibold">
           Coverage clarity without the hold music
         </h2>
-        <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+        <ul className="mt-4 list-none space-y-3 text-sm text-muted-foreground">
           {coverageHelps.map((item) => (
-            <li key={item.text} className="flex gap-3">
-              <span className="mt-1 inline-block h-2 w-2 rounded-full bg-primary" />
+            <li key={item.text} className="flex items-start gap-2">
+              <span aria-hidden className="text-base leading-none text-primary">
+                •
+              </span>
               <span>
                 {item.text}{" "}
                 <a
                   href={item.link}
-                  className="text-primary underline underline-offset-4"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block break-words text-primary underline underline-offset-4"
                 >
                   See resource
                 </a>
@@ -195,9 +216,9 @@ export default function ChatPage() {
           Prefer SMS? Text <strong>(555) 010‑2477</strong> for a secure thread or
           tap the widget in the corner to open chat instantly.
         </p>
-      </article>
+      </motion.article>
 
-      <article className="rounded-3xl border bg-background p-6">
+      <motion.article {...fadeIn(0.15)} className="rounded-3xl border bg-background p-6">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
           Try the chat
         </p>
@@ -205,28 +226,34 @@ export default function ChatPage() {
           See how the bot tees up helpful info
         </h2>
         <div className="mt-4 max-h-72 overflow-y-auto rounded-2xl border bg-muted/20 p-4 text-sm">
-          {messages.map((message, index) => (
-            <div
-              key={`${message.role}-${index}`}
-              className={`mb-3 flex ${
-                message.role === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
-              <div
-                className={`max-w-sm rounded-2xl px-4 py-2 ${
-                  message.role === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-background text-foreground"
+          <AnimatePresence initial={false}>
+            {messages.map((message, index) => (
+              <motion.div
+                key={`${message.role}-${index}`}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
+                className={`mb-3 flex ${
+                  message.role === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                {message.content.split("\n").map((line, idx) => (
-                  <p key={idx} className="whitespace-pre-wrap">
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ))}
+                <div
+                  className={`max-w-sm rounded-2xl px-4 py-2 ${
+                    message.role === "user"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-background text-foreground"
+                  }`}
+                >
+                  {message.content.split("\n").map((line, idx) => (
+                    <p key={idx} className="whitespace-pre-wrap">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
         <form onSubmit={handleSubmit} className="mt-4 flex gap-3">
           <input
@@ -243,7 +270,7 @@ export default function ChatPage() {
             Send
           </button>
         </form>
-      </article>
-    </section>
+      </motion.article>
+    </motion.section>
   );
 }

@@ -17,10 +17,10 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Appointments", href: "/appointments" },
   { label: "Guides", href: "/guides" },
   { label: "24/7 Chat", href: "/chat" },
   { label: "Insurance", href: "/insurance" },
-  { label: "Profile", href: "/profile" },
 ];
 
 const mobileLinkBaseDelay = 0.15;
@@ -33,7 +33,7 @@ export function SiteHeader() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-gradient-to-r from-background/95 to-card/90 shadow-[0_10px_40px_-25px_rgba(18,34,23,0.6)] backdrop-blur supports-[backdrop-filter]:bg-card/90">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-linear-to-r from-background/95 to-card/90 shadow-[0_10px_40px_-25px_rgba(18,34,23,0.6)] backdrop-blur supports-[backdrop-filter]:bg-card/90">
       <div className="mx-auto w-full max-w-6xl px-4 py-3 md:py-4 lg:px-6">
         <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-card/90 px-4 py-2.5 shadow-sm md:px-6">
           <motion.div
@@ -55,9 +55,6 @@ export function SiteHeader() {
               />
               <span className="text-lg text-foreground/90">CampusCare</span>
             </Link>
-            <span className="hidden rounded-full bg-accent/70 px-2 py-0.5 text-xs font-medium text-accent-foreground sm:inline-flex">
-              Student wellbeing
-            </span>
           </motion.div>
 
           <div className="hidden flex-1 items-center justify-end md:flex">
@@ -107,7 +104,7 @@ export function SiteHeader() {
                       href="/sign-in"
                       className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/30 transition-colors hover:bg-primary/90"
                     >
-                      Sign in
+                      Profile
                     </NavigationMenuLink>
                   </motion.div>
                 </NavigationMenuItem>
@@ -178,9 +175,9 @@ export function SiteHeader() {
                   <Link
                     href="/sign-in"
                     onClick={closeMenu}
-                    className="rounded-full bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground shadow-md shadow-primary/30 transition-colors hover:bg-primary/90"
+                    className="w-full rounded-full bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground shadow-md shadow-primary/30 transition-colors hover:bg-primary/90"
                   >
-                    Sign in
+                    Profile
                   </Link>
                 </motion.div>
               </nav>

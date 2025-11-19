@@ -54,7 +54,7 @@ const timelineSteps = [
     actions: [
       {
         label: "UHCS insurance overview",
-        href: "https://uhcs.northeastern.edu/insurance/",
+        href: "https://studenthealthplan.northeastern.edu/",
         description: "Read what SHP covers + how to submit a waiver if you already have coverage.",
       },
       {
@@ -117,7 +117,7 @@ const timelineSteps = [
       },
       {
         label: "ConnectorCare document center",
-        href: "https://www.mahealthconnector.org/how-to-submit-documents",
+        href: "https://betterhealthconnector.com/about/policy-center/student-health-insurance-program",
         description: "Submit eligibility documents when the Health Connector requests them.",
       },
     ],
@@ -200,10 +200,12 @@ export default function GuidesPage() {
             >
               <p className="text-base font-semibold">{request.label}</p>
               <p className="mt-2 text-xs text-muted-foreground">{request.note}</p>
-              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+              <ul className="mt-3 list-none space-y-2 text-xs text-muted-foreground">
                 {request.steps.map((step) => (
-                  <li key={step} className="flex gap-2">
-                    <span className="mt-0.5 h-1.5 w-1.5 rounded-full bg-primary" />
+                  <li key={step} className="flex items-start gap-2">
+                    <span aria-hidden className="text-sm leading-none text-primary">
+                      •
+                    </span>
                     <span>{step}</span>
                   </li>
                 ))}
@@ -213,7 +215,7 @@ export default function GuidesPage() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Open UHCS appointment request for ${request.label} in a new tab`}
-                className="mt-3 inline-flex items-center text-xs font-semibold text-primary underline underline-offset-4"
+                className="mt-3 block break-words text-xs font-semibold text-primary underline underline-offset-4"
               >
                 Open official UHCS form
               </a>
@@ -257,7 +259,7 @@ export default function GuidesPage() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Open ${action.label} in a new tab`}
-                    className="mt-2 inline-flex items-center text-xs font-semibold text-primary underline underline-offset-4"
+                    className="mt-2 block break-words text-xs font-semibold text-primary underline underline-offset-4"
                   >
                     View official resource
                   </a>
