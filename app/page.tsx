@@ -3,15 +3,15 @@
 import { motion } from "framer-motion";
 
 const appointment = {
-  title: "ConnectorCare physical (external)",
+  title: "MassHealth-covered physical off campus",
   date: "Tue, Sept 9",
   time: "2:00 – 2:45 PM ET",
   location: "Fenway Health – 1340 Boylston St.",
-  provider: "Care team routed via UHCS referral",
+  provider: "UHCS referral crew",
   prep: [
-    "Bring NEU Student Health Plan card or digital copy",
-    "Upload UHCS referral confirmation for external provider",
-    "Arrive 10 minutes early to check in with Fenway Health front desk",
+    "Snap a photo of your MassHealth ID card just in case.",
+    "Upload the UHCS referral before you leave the dorm.",
+    "Show up 10 minutes early so Fenway Health can check you in.",
   ],
 };
 
@@ -19,20 +19,20 @@ const supportTeam = [
   {
     name: "Mateo Alvarez",
     focus: "ConnectorCare navigator",
-    detail: "Checks eligibility + tax credits for low or no-cost plans.",
+    detail: "Checks your eligibility + scoops up tax credits so the bill drops fast.",
     status: "Online now",
   },
   {
     name: "Serena Kapoor",
     focus: "MassHealth case manager",
-    detail: "Helps out-of-state & intl. students enroll or renew coverage.",
-    status: "Typically replies in 5 min",
+    detail: "Walks out-of-state + international students through MassHealth paperwork without the headache.",
+    status: "Replies in ~5 min",
   },
   {
     name: "Dr. Theo Brooks",
     focus: "Behavioral health lead",
-    detail: "Explains which therapy + mental health visits are covered.",
-    status: "Available after 3 PM",
+    detail: "Breaks down which therapy visits are covered and how to book the right person.",
+    status: "Back after 3 PM",
   },
 ];
 
@@ -54,7 +54,7 @@ export default function Home() {
       <div className="grid gap-6 lg:grid-cols-[2fr,3fr]">
         <motion.article {...fadeInUp(0)} className="rounded-3xl border bg-muted/20 p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-            Upcoming appointment
+            Next on your calendar
           </p>
           <h1 className="mt-4 text-3xl font-semibold text-foreground">
             {appointment.title}
@@ -69,7 +69,7 @@ export default function Home() {
             <div>Lead clinician: {appointment.provider}</div>
           </dl>
           <p className="mt-3 text-sm text-muted-foreground">
-            UHCS does not complete annual physicals on-site; per{" "}
+            UHCS doesn’t run yearly physicals on campus, so per{" "}
             <a
               href="https://uhcs.northeastern.edu/appointments/"
               target="_blank"
@@ -78,11 +78,10 @@ export default function Home() {
             >
               UHCS appointment guidance
             </a>
-            , students schedule those with community providers after receiving a
-            referral.
+            , students book those with community clinics after a referral. MassHealth covers this one at $0, so just show up ready.
           </p>
           <div className="mt-6 rounded-2xl border bg-background/80 p-5">
-            <p className="text-sm font-semibold text-foreground">Prep checklist</p>
+            <p className="text-sm font-semibold text-foreground">What to bring</p>
             <ul className="mt-3 list-none space-y-2 text-sm text-muted-foreground">
               {appointment.prep.map((item) => (
                 <li key={item} className="flex items-start gap-2">
@@ -103,10 +102,10 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-                Your support team
+                Your support crew
               </p>
               <h2 className="mt-3 text-2xl font-semibold">
-                People tied to your benefits
+                People who can jump in right now
               </h2>
             </div>
             <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">

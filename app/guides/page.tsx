@@ -5,42 +5,42 @@ import { motion } from "framer-motion";
 const overviewCards = [
   {
     title: "Why CampusCare exists",
-    copy: "Massachusetts + Northeastern require active insurance. CampusCare surfaces what plan you’re on, who can help, and the next steps so nothing gets lost.",
+    copy: "Massachusetts + Northeastern require active insurance. We keep your plan info, helpers, and next steps in one chill dashboard so nothing falls through.",
   },
   {
     title: "What happens on each page",
-    copy: "Home shows appointments + team, 24/7 chat lists live people, Insurance stores cards + links, and this Guides page walks you through every workflow.",
+    copy: "Home shows appointments + your crew, 24/7 chat lists real people, Insurance stores cards + links, and this Guides page breaks down every workflow step by step.",
   },
 ];
 
 const appointmentRequests = [
   {
     label: "Dental",
-    note: "UHCS coordinates referrals to community dentists for cleanings, fillings, and orthodontic concerns.",
+    note: "UHCS hooks you up with community dentists for cleanings, fillings, or braces tweaks.",
     steps: [
-      "Select “Dental” on the UHCS appointment form.",
-      "Share insurance info + preferred locations (Fenway Health, Atrius, etc.).",
-      "Wait for UHCS to confirm your referral and provide intake paperwork.",
+      "Pick “Dental” on the UHCS appointment form.",
+      "Drop your insurance info + preferred locations (Fenway, Atrius, etc.).",
+      "UHCS confirms the referral and sends intake paperwork.",
     ],
     href: "https://uhcs.northeastern.edu/appointments/",
   },
   {
     label: "Medical (non-emergency)",
-    note: "Use this for annual physicals, chronic care, specialist follow ups, or lab orders.",
+    note: "Use this for physicals, chronic care, follow ups, or lab orders.",
     steps: [
-      "Explain symptoms/needs plus available times.",
-      "Note if you need a physical required by co-op/employer.",
-      "UHCS triage nurses reply with same-day options or external partners.",
+      "Tell UHCS what’s going on + your free times.",
+      "Mention if it’s a physical needed for co-op/employer.",
+      "UHCS triage nurses reply with same-day slots or partner clinics.",
     ],
     href: "https://uhcs.northeastern.edu/appointments/",
   },
   {
     label: "Mental health",
-    note: "Get matched with UHCS behavioral clinicians or trusted external therapists.",
+    note: "Get matched with UHCS clinicians or trusted off-campus therapists.",
     steps: [
-      "Choose whether you want counseling, psychiatry, or a specific language.",
-      "Mention existing diagnoses/medications so care is continuous.",
-      "Expect a coordinator follow-up within one business day.",
+      "Choose counseling, psychiatry, or a language preference.",
+      "Mention diagnoses/meds so care stays consistent.",
+      "A coordinator follows up in one business day.",
     ],
     href: "https://uhcs.northeastern.edu/appointments/",
   },
@@ -50,92 +50,92 @@ const timelineSteps = [
   {
     title: "Step 1 · Confirm the mandate",
     summary:
-      "Massachusetts law says every degree-seeking student must carry comparable insurance or buy the NEU Student Health Plan ($2,849/year). Start by checking where you stand.",
+      "Massachusetts says every degree-seeking student needs comparable insurance or they get billed for the $2,849 NEU plan. Check if MassHealth/ConnectorCare qualifies so you can waive SHP.",
     actions: [
       {
         label: "UHCS insurance overview",
         href: "https://studenthealthplan.northeastern.edu/",
-        description: "Read what SHP covers + how to submit a waiver if you already have coverage.",
+        description: "Skim what SHP covers + grab the waiver steps once you lock MassHealth in.",
       },
       {
         label: "Comparable coverage checklist",
         href: "https://uhcs.northeastern.edu/appointments/",
-        description: "Upload policy docs so UHCS can verify your external plan.",
+        description: "Upload MassHealth or family-plan docs so UHCS can verify and waive the SHP fee.",
       },
     ],
   },
   {
     title: "Step 2 · Explore lower-cost options",
     summary:
-      "ConnectorCare, MassHealth, and ACA tax credits can reduce premiums to low or no cost. Everything below explains eligibility, documents, and timelines.",
+      "ConnectorCare, MassHealth, and ACA tax credits usually land at $0–$40 per month—way less than NEU’s $237/mo charge. Use these links to confirm eligibility and timelines.",
     actions: [
       {
         label: "Massachusetts Health Connector",
         href: "https://www.mahealthconnector.org/",
         description:
-          "Compare ConnectorCare plans, see monthly costs, and learn which carriers waive deductibles. Have your income, residency info, and tax filing status ready.",
+          "Compare ConnectorCare plans, see monthly costs, and spot the ones that waive deductibles with MassHealth-level coverage. Have income, residency info, and tax status ready.",
       },
       {
         label: "Apply for MassHealth",
         href: "https://www.mass.gov/how-to/apply-for-masshealth-the-health-safety-net-or-the-childrens-medical-security-plan",
         description:
-          "Gather proof of identity, residency, income, immigration status (if applicable), and Social Security numbers. The official application lets you start online and upload docs; we summarize every field here so you can prep before opening the form.",
+          "Gather proof of identity, residency, income, immigration status (if applicable), and Social Security numbers. The official app lets you start online + upload docs—we summarize the fields so you can prep first.",
       },
     ],
   },
   {
     title: "Step 3 · Book the right appointment",
     summary:
-      "UHCS handles triage, vaccines, and urgent needs but sends students to community clinics for physicals or continuing care.",
+      "UHCS handles triage, vaccines, and urgent stuff but sends students to community clinics for physicals or long-term care.",
     actions: [
       {
         label: "UHCS appointment request",
         href: "https://uhcs.northeastern.edu/appointments/",
-        description: "Tell UHCS what you need—they’ll confirm next steps or provide referrals.",
+        description: "Tell UHCS what you need—they’ll confirm next steps or fire off referrals.",
       },
       {
         label: "Fenway Health appointments",
         href: "https://fenwayhealth.org/",
-        description: "Common referral partner for primary care + gender-affirming services.",
+        description: "Common referral partner for primary care + gender-affirming care.",
       },
       {
         label: "Atrius Health Kenmore",
         href: "https://www.atriushealth.org/locations/kenmore",
-        description: "Another nearby option for physicals and preventive care.",
+        description: "Another nearby spot for physicals and preventive care.",
       },
     ],
   },
   {
     title: "Step 4 · Add/track other insurance",
     summary:
-      "If you stay on a parent or employer plan, store both sides of the card and key IDs so claims are smooth.",
+      "Staying on a parent or employer plan? Store card photos and IDs so claims go smoothly.",
     actions: [
       {
         label: "Upload insurance card",
-        href: "https://uhcs.northeastern.edu/appointments/",
+        href: "https://studenthealthplan.northeastern.edu/your-insurance-information/",
         description: "Securely send front/back images for CampusCare + UHCS records.",
       },
       {
         label: "ConnectorCare document center",
         href: "https://betterhealthconnector.com/about/policy-center/student-health-insurance-program",
-        description: "Submit eligibility documents when the Health Connector requests them.",
+        description: "Submit eligibility documents when the Health Connector pings you.",
       },
     ],
   },
   {
     title: "Step 5 · Ask for human help anytime",
     summary:
-      "Still confused? Use chat, call UHCS, or ring the Health Connector so you’re never stuck.",
+      "Still lost? Chat with us, call UHCS, or loop in the Health Connector so you’re never stuck.",
     actions: [
       {
         label: "Chat with CampusCare",
         href: "/chat",
-        description: "Our 24/7 roster mirrors your wireframes—tap a person, send a note, get help.",
+        description: "Tap someone on the 24/7 roster, send a note, and get real help.",
       },
       {
         label: "Call UHCS",
         href: "tel:6173732772",
-        description: "617-373-2772 (option 1) for urgent clinical questions.",
+        description: "617-373-2772 (option 1) when it’s an urgent clinical question.",
       },
       {
         label: "Health Connector support",
@@ -161,8 +161,7 @@ export default function GuidesPage() {
           Everything you need lives right here.
         </h1>
         <p className="mt-3 max-w-3xl text-muted-foreground">
-          These cards collect the exact policies, forms, and instructions so you understand
-          what to do before you ever open an external page. Official links are still provided for verification.
+          These cards pull together the policies, forms, and instructions so you know what to do before ever opening a new tab. Official links are still there when you’re ready.
         </p>
       </motion.div>
 
@@ -191,7 +190,7 @@ export default function GuidesPage() {
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
           Request an appointment
         </p>
-        <h2 className="mt-3 text-2xl font-semibold">Pick a reason, follow the on-page steps</h2>
+        <h2 className="mt-3 text-2xl font-semibold">Pick a reason, follow the mini checklist</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {appointmentRequests.map((request) => (
             <div

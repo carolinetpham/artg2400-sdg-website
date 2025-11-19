@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 const profile = {
   name: "Jamie Lee",
   email: "jamie.lee@northeastern.edu",
-  memberId: "NEU-SHP-02931",
-  plan: "NEU Student Health Plan",
+  memberId: "MA-482-991-02",
+  plan: "MassHealth Standard",
 };
 
 const fadeIn = (delay = 0) => ({

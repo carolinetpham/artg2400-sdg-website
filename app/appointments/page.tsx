@@ -55,13 +55,13 @@ const planAppointments = [
 
 const coverageFacts = [
   "Massachusetts requires every degree-seeking student to carry comparable health insurance.",
-  "NEU Student Health Plan: $2,849 for Sept 1, 2025 – Aug 31, 2026.",
+  "MassHealth + ConnectorCare usually cost $0–$40/mo versus the $2,849 ($237/mo) Northeastern SHP.",
   "Tax credits plus ConnectorCare can drop monthly premiums close to $0 when you qualify.",
   "Staying on a parent/guardian plan is allowed until age 26 if benefits meet MA standards.",
 ];
 
 const barrierNotes = [
-  "Balancing tuition, housing, and a $2.8K health plan forces many students to delay care.",
+  "Balancing tuition, housing, and a $2.8K campus plan forces many students to delay care until they switch to MassHealth.",
   "Out-of-state and international students often struggle to understand MassHealth, ConnectorCare, or ACA rules.",
   "Networks vary per plan, so it’s tough to know where you can book therapy, dental, or urgent visits.",
   "CampusCare supports SDG 3.8: advancing universal health coverage with guidance + human help.",
@@ -96,9 +96,9 @@ const maLinks = [
     link: "https://www.mass.gov/how-to/apply-for-masshealth-the-health-safety-net-or-the-childrens-medical-security-plan",
   },
   {
-    title: "NEU Student Health Plan (SHP)",
+    title: "Compare with NEU Student Health Plan",
     detail:
-      "Review the $2,849 annual premium, coverage levels, and waiver instructions for Northeastern’s SHP.",
+      "Review the $2,849 annual premium, coverage levels, and waiver instructions so you can show MassHealth is cheaper.",
     link: "https://studenthealthplan.northeastern.edu/effective-dates-costs/",
   },
 ];

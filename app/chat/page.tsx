@@ -7,28 +7,28 @@ const liveSpecialists = [
   {
     name: "Tara Vang",
     specialty: "Insurance navigator",
-    focus: "ConnectorCare + MassHealth eligibility screening",
+    focus: "Figures out ConnectorCare + MassHealth eligibility without the runaround.",
     wait: "< 2 min",
     channel: "Text or chat",
   },
   {
     name: "Dr. Miles Reno",
     specialty: "Urgent care triage",
-    focus: "Books same-day visits + clarifies in-network clinics",
+    focus: "Books same-day visits + tells you which clinics take your plan.",
     wait: "3 min",
     channel: "Video consult",
   },
   {
     name: "Imani Solano",
     specialty: "Mental health coordinator",
-    focus: "Explains therapy coverage + finds bilingual clinicians",
+    focus: "Explains therapy coverage + finds bilingual clinicians who get it.",
     wait: "Now",
     channel: "Audio or chat",
   },
   {
     name: "Victor Hu",
     specialty: "Financial aid mentor",
-    focus: "Breaks down $2,849 NEU premium + payment plans",
+    focus: "Shows how MassHealth/ConnectorCare drop costs vs. the $2,849 NEU plan and helps file the waiver.",
     wait: "5 min",
     channel: "Text",
   },
@@ -36,19 +36,19 @@ const liveSpecialists = [
 
 const coverageHelps = [
   {
-    text: "Walk through Massachusetts’ requirement and make sure your plan counts as comparable coverage.",
+    text: "Walk through the Massachusetts requirement and make sure your plan actually counts.",
     link: "https://uhcs.northeastern.edu/insurance/",
   },
   {
-    text: "Apply tax credits directly to your ConnectorCare premium so bills drop before they hit your account.",
+    text: "Apply tax credits to your ConnectorCare premium so bills shrink before they post.",
     link: "https://www.mahealthconnector.org/how-to-pay-your-premium",
   },
   {
-    text: "Understand what MassHealth covers (dental, therapy, prescriptions) and where to book visits.",
+    text: "Figure out what MassHealth covers—dental, therapy, prescriptions—and where to book it.",
     link: "https://www.mass.gov/orgs/masshealth",
   },
   {
-    text: "Share documents securely so coordinators can advocate with the Health Connector on your behalf.",
+    text: "Share documents securely so coordinators can nudge the Health Connector for you.",
     link: "https://www.mahealthconnector.org/how-to-submit-documents",
   },
 ];
@@ -56,11 +56,11 @@ const coverageHelps = [
 const nearbyProviders = [
   {
     name: "Fenway Health",
-    detail: "1340 Boylston St • accepts ConnectorCare primary care referrals.",
+    detail: "1340 Boylston St • friendly with ConnectorCare primary care referrals.",
   },
   {
     name: "Atrius Health – Kenmore",
-    detail: "133 Brookline Ave • same-day appointments for students needing physicals.",
+    detail: "133 Brookline Ave • go-to for same-day physicals.",
   },
   {
     name: "Beth Israel Lahey Primary Care – Chestnut Hill",
@@ -69,9 +69,9 @@ const nearbyProviders = [
 ];
 
 const generalReplies = [
-  "I can review your insurance card and confirm which services are covered—feel free to upload a photo.",
-  "Need financial help? We can screen you for ConnectorCare or MassHealth in minutes.",
-  "UHCS handles urgent concerns; for long-term care we’ll connect you to community providers that accept your plan.",
+  "Drop a photo of your insurance card and I’ll tell you what’s covered in plain English.",
+  "Need money help? I can screen you for ConnectorCare or MassHealth in a few minutes.",
+  "UHCS takes urgent stuff, but for longer-term care I can line up community providers who accept your plan.",
 ];
 
 type ChatMessage = {
@@ -92,11 +92,11 @@ function useFakeResponder() {
         const list = nearbyProviders
           .map((provider) => `• ${provider.name}: ${provider.detail}`)
           .join("\n");
-        return `Here are a few Boston-area clinics that UHCS regularly recommends for physicals and new patient appointments:\n${list}\nNeed me to book one? Let me know and I’ll hold a slot.`;
+        return `Here are a few Boston spots UHCS loves for physicals and new patient appointments:\n${list}\nWant me to grab a time for you? Just say the word.`;
       }
 
       if (question.includes("insurance") || question.includes("connector")) {
-        return "ConnectorCare + MassHealth eligibility takes about 5 minutes. I’ll ask income + residency questions, prep any tax credit forms, then share plans with $0-$40 monthly premiums.";
+        return "ConnectorCare + MassHealth screening takes like 5 minutes. I’ll ask income + residency basics, prep the tax credit form, then show plans that land around $0-$40 per month.";
       }
 
       return generalReplies[Math.floor(Math.random() * generalReplies.length)];
@@ -118,7 +118,7 @@ export default function ChatPage() {
     {
       role: "assistant",
       content:
-        "Ask anything about coverage, referrals, or billing. I can pull up nearby clinics, verify benefits, or connect you to UHCS.",
+        "Ask anything about coverage, referrals, or billing. I can pull up nearby clinics, double-check benefits, or loop in UHCS.",
     },
   ]);
   const respond = useFakeResponder();
@@ -147,12 +147,10 @@ export default function ChatPage() {
           24/7 Assistance
         </p>
         <h1 className="mt-4 text-3xl font-semibold">
-          Real specialists who already know student insurance.
+          Real people who already know student insurance life.
         </h1>
         <p className="mt-3 max-w-3xl text-muted-foreground">
-          These coordinators rotate every hour so someone is always ready to
-          answer coverage questions, schedule care, or decode ConnectorCare and
-          MassHealth rules for you.
+          These coordinators rotate every hour, so someone’s always around to answer coverage questions, book care, or decode ConnectorCare + MassHealth rules.
         </p>
       </motion.div>
 
@@ -187,10 +185,10 @@ export default function ChatPage() {
         className="rounded-3xl border bg-muted/15 p-6"
       >
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-          How we help in real time
+          What we actually do
         </p>
         <h2 className="mt-3 text-2xl font-semibold">
-          Coverage clarity without the hold music
+          Insurance help without the hold music
         </h2>
         <ul className="mt-4 list-none space-y-3 text-sm text-muted-foreground">
           {coverageHelps.map((item) => (
@@ -213,17 +211,16 @@ export default function ChatPage() {
           ))}
         </ul>
         <p className="mt-5 text-sm text-muted-foreground">
-          Prefer SMS? Text <strong>(555) 010‑2477</strong> for a secure thread or
-          tap the widget in the corner to open chat instantly.
+          Prefer SMS? Text <strong>(555) 010‑2477</strong> for a secure thread or tap the widget in the corner to jump into chat.
         </p>
       </motion.article>
 
       <motion.article {...fadeIn(0.15)} className="rounded-3xl border bg-background p-6">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-          Try the chat
+          Take the chat for a spin
         </p>
         <h2 className="mt-3 text-2xl font-semibold">
-          See how the bot tees up helpful info
+          Watch the bot tee up helpful info
         </h2>
         <div className="mt-4 max-h-72 overflow-y-auto rounded-2xl border bg-muted/20 p-4 text-sm">
           <AnimatePresence initial={false}>
@@ -255,17 +252,20 @@ export default function ChatPage() {
             ))}
           </AnimatePresence>
         </div>
-        <form onSubmit={handleSubmit} className="mt-4 flex gap-3">
+        <form
+          onSubmit={handleSubmit}
+          className="mt-4 flex flex-col gap-3 sm:flex-row"
+        >
           <input
             type="text"
             value={input}
             onChange={(event) => setInput(event.target.value)}
-            placeholder='Try: "What doctors are nearby?"'
+            placeholder='Try: "Where can I see a doctor near campus?"'
             className="flex-1 rounded-full border bg-transparent px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary"
           />
           <button
             type="submit"
-            className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            className="w-full rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
           >
             Send
           </button>
