@@ -2,6 +2,15 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  Check,
+  Copy,
+  MessageCircle,
+  MessageSquare,
+  Phone,
+  Video,
+  X,
+} from "lucide-react";
 
 const liveSpecialists = [
   {
@@ -10,6 +19,7 @@ const liveSpecialists = [
     focus: "Figures out ConnectorCare + MassHealth eligibility without the runaround.",
     wait: "< 2 min",
     channel: "Text or chat",
+    contactNumber: "(555) 010-2477",
   },
   {
     name: "Dr. Miles Reno",
@@ -17,6 +27,7 @@ const liveSpecialists = [
     focus: "Books same-day visits + tells you which clinics take your plan.",
     wait: "3 min",
     channel: "Video consult",
+    contactNumber: "(555) 010-4822",
   },
   {
     name: "Imani Solano",
@@ -24,6 +35,7 @@ const liveSpecialists = [
     focus: "Explains therapy coverage + finds bilingual clinicians who get it.",
     wait: "Now",
     channel: "Audio or chat",
+    contactNumber: "(555) 010-0880",
   },
   {
     name: "Victor Hu",
@@ -31,6 +43,7 @@ const liveSpecialists = [
     focus: "Shows how MassHealth/ConnectorCare drop costs vs. the $2,849 NEU plan and helps file the waiver.",
     wait: "5 min",
     channel: "Text",
+    contactNumber: "(555) 010-1991",
   },
 ];
 
@@ -121,6 +134,11 @@ export default function ChatPage() {
         "Ask anything about coverage, referrals, or billing. I can pull up nearby clinics, double-check benefits, or loop in UHCS.",
     },
   ]);
+  const [activeSpecialist, setActiveSpecialist] =
+    useState<(typeof liveSpecialists)[number] | null>(null);
+  const [modalMessages, setModalMessages] = useState<ChatMessage[]>([]);
+  const [modalInput, setModalInput] = useState("");
+  const [copiedField, setCopiedField] = useState<"text" | "call" | null>(null);
   const respond = useFakeResponder();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -133,6 +151,46 @@ export default function ChatPage() {
     };
     setMessages((prev) => [...prev, userMessage, reply]);
     setInput("");
+  };
+
+  const openSpecialistModal = (person: (typeof liveSpecialists)[number]) => {
+    setActiveSpecialist(person);
+    setCopiedField(null);
+    setModalInput("");
+    setModalMessages([
+      {
+        role: "assistant",
+        content: `You’re chatting with ${person.name} (${person.specialty}). Ask about ${person.focus.toLowerCase()}`,
+      },
+    ]);
+  };
+
+  const closeSpecialistModal = () => {
+    setActiveSpecialist(null);
+    setModalMessages([]);
+    setModalInput("");
+  };
+
+  const handleModalSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!modalInput.trim() || !activeSpecialist) return;
+    const userMessage: ChatMessage = { role: "user", content: modalInput.trim() };
+    const reply: ChatMessage = {
+      role: "assistant",
+      content: respond(modalInput.trim()),
+    };
+    setModalMessages((prev) => [...prev, userMessage, reply]);
+    setModalInput("");
+  };
+
+  const copyToClipboard = async (value: string, field: "text" | "call") => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (error) {
+      console.error("Unable to copy to clipboard", error);
+    }
   };
 
   return (
@@ -156,10 +214,12 @@ export default function ChatPage() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {liveSpecialists.map((person, index) => (
-          <motion.article
+          <motion.button
             key={person.name}
             {...fadeIn(0.05 * index)}
-            className="rounded-3xl border bg-background/80 p-5 shadow-sm"
+            type="button"
+            onClick={() => openSpecialistModal(person)}
+            className="w-full rounded-3xl border bg-background/80 p-5 text-left shadow-sm transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/40"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -173,10 +233,10 @@ export default function ChatPage() {
               </span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">{person.focus}</p>
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              {person.channel}
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              Preferred: {person.channel}
             </p>
-          </motion.article>
+          </motion.button>
         ))}
       </div>
 
@@ -271,6 +331,202 @@ export default function ChatPage() {
           </button>
         </form>
       </motion.article>
+
+      <AnimatePresence>
+        {activeSpecialist ? (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ y: 24, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 24, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 220, damping: 26 }}
+              className="relative w-full max-w-4xl rounded-3xl border bg-background p-6 shadow-2xl"
+            >
+              <button
+                aria-label="Close coordinator modal"
+                onClick={closeSpecialistModal}
+                className="absolute right-4 top-4 rounded-full border border-border/80 bg-white/80 p-2 text-muted-foreground transition-colors hover:bg-secondary/80 hover:text-foreground"
+                type="button"
+              >
+                <X className="size-4" />
+              </button>
+              <div className="flex flex-col gap-1">
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+                  Coordinator
+                </p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-xl font-semibold">
+                    {activeSpecialist.name}
+                  </h3>
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                    Wait: {activeSpecialist.wait}
+                  </span>
+                  <span className="rounded-full border border-primary/40 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
+                    Prefers: {activeSpecialist.channel}
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {activeSpecialist.specialty} • {activeSpecialist.focus}
+                </p>
+              </div>
+
+              <div className="mt-5 grid gap-5 lg:grid-cols-[1.05fr_minmax(0,1fr)]">
+                <div className="space-y-3">
+                  <div className="rounded-2xl border bg-muted/10 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold flex items-center gap-2">
+                          <MessageSquare className="size-4 text-primary" />
+                          Text
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {activeSpecialist.contactNumber}
+                        </p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Save to your phone and text to start a secure thread.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          copyToClipboard(activeSpecialist.contactNumber, "text")
+                        }
+                        className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-secondary/80"
+                      >
+                        {copiedField === "text" ? (
+                          <Check className="size-3.5" />
+                        ) : (
+                          <Copy className="size-3.5" />
+                        )}
+                        {copiedField === "text" ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border bg-muted/10 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold flex items-center gap-2">
+                          <Phone className="size-4 text-primary" />
+                          Call
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {activeSpecialist.contactNumber}
+                        </p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Copy the number to call or drop it into FaceTime/Zoom.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          copyToClipboard(activeSpecialist.contactNumber, "call")
+                        }
+                        className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-secondary/80"
+                      >
+                        {copiedField === "call" ? (
+                          <Check className="size-3.5" />
+                        ) : (
+                          <Copy className="size-3.5" />
+                        )}
+                        {copiedField === "call" ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                  </div>
+
+                  <a
+                    href="https://example.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between rounded-2xl border bg-primary/10 px-4 py-4 text-sm font-semibold text-primary transition-colors hover:bg-primary/15"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Video className="size-4" />
+                      Join the video lobby
+                    </div>
+                  </a>
+
+                  <div className="rounded-2xl border bg-muted/10 p-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold">
+                      <MessageCircle className="size-4 text-primary" />
+                      Prefer chat?
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Keep everything in one place—chat thread stays inside this modal.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border bg-muted/10 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold">
+                        Chat with {activeSpecialist.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Replies use the same smart prompts as the main chat.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-3 max-h-72 overflow-y-auto rounded-xl border bg-background/90 p-3 text-sm">
+                    <AnimatePresence initial={false}>
+                      {modalMessages.map((message, idx) => (
+                        <motion.div
+                          key={`${message.role}-${idx}`}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.2 }}
+                          className={`mb-3 flex ${
+                            message.role === "user" ? "justify-end" : "justify-start"
+                          }`}
+                        >
+                          <div
+                            className={`max-w-sm rounded-2xl px-3 py-2 ${
+                              message.role === "user"
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-muted text-foreground"
+                            }`}
+                          >
+                            {message.content.split("\n").map((line, lineIdx) => (
+                              <p key={lineIdx} className="whitespace-pre-wrap">
+                                {line}
+                              </p>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </div>
+                  <form
+                    onSubmit={handleModalSubmit}
+                    className="mt-3 flex flex-col gap-2 sm:flex-row"
+                  >
+                    <input
+                      type="text"
+                      value={modalInput}
+                      onChange={(event) => setModalInput(event.target.value)}
+                      placeholder="Type your question"
+                      className="flex-1 rounded-full border bg-background px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary"
+                    />
+                    <button
+                      type="submit"
+                      className="w-full rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
+                    >
+                      Send
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </motion.section>
   );
 }
