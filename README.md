@@ -1,49 +1,53 @@
-# ARTG2400 - Interaction Design Principles Final Project
+# CampusCare
 
-## Project Overview
-This project is a frontend website created for the ARTG 2400 IXD course. It explores themes connected to the United Nations Sustainable Development Goals (SDGs) and presents research through a visually engaging, responsive web experience. The website was designed and built using modern web technologies with a focus on clean layout, accessibility, and readability.
+CampusCare is a student-first health coverage companion for Northeastern. It keeps the insurance mandate, MassHealth/ConnectorCare benefits, and UHCS workflows in one place so students can book the right care, waive the campus fee, and talk to a real human anytime.
 
-## Motivation & Goals
-- Combine visual culture concepts with interactive web design.
-- Communicate SDG-related ideas through clear, intentional visual presentation.
-- Demonstrate frontend development skills using React, Next.js, and TypeScript.
-- Produce a polished, responsive site as part of the final course deliverable.
+## Product snapshot
+- Appointment booking with live prep notes and confirmation codes (`/appointments`).
+- 24/7 coordinator roster and chat simulation to show the service promise (`/chat`).
+- Insurance wallet that compares MassHealth vs. the NEU SHP and collects proof of coverage (`/insurance`).
+- Guides that break down steps to waive fees, apply for aid, and pick providers (`/guides`).
+- Sticky navigation + responsive layout so every flow stays reachable on mobile.
 
-## Tech Stack
-- Next.js (React framework)
-- TypeScript
-- CSS Modules
-- Node.js / npm
-- Fully static frontend — no backend required
+## Why it matters
+- Massachusetts + NEU require comparable coverage; CampusCare lowers the $2,849 SHP burden by steering students to MassHealth/ConnectorCare.
+- Reduces friction for out-of-state and international students by translating benefits into plain language.
+- Anchored to SDG 3.8: improving access to affordable health services.
 
-## Getting Started
+## Tech stack
+- Next.js 16 + React 19 with the App Router.
+- TypeScript with modern linting (`eslint` via `next lint`).
+- Tailwind CSS v4 for styling, Framer Motion for motion, Radix Navigation Menu for nav.
+- Icons via `lucide-react`; utility helpers with `clsx` and `class-variance-authority`.
 
-### Prerequisites
-- Node.js 14+
-- npm or yarn
+## Getting started
+- Prereqs: Node 18+ and npm.
+- Install: `npm install`
+- Run dev server: `npm run dev` then open http://localhost:3000
+- Build for production: `npm run build` (serve with `npm start`).
+- Lint: `npm run lint`
 
-### Installation
-Clone the repository, install dependencies, and run the dev server:
+## Repo layout
+- `app/` — route groups for home, appointments, chat, guides, insurance, profile/sign-in.
+- `components/` — shared UI like the sticky `SiteHeader` and navigation menu.
+- `lib/` — utilities such as class name helpers.
+- `public/` — static assets (logo, favicon, etc.).
 
-- `git clone https://github.com/carolinetpham/artg2400-sdg-website.git`  
-- `cd artg2400-sdg-website`  
-- `npm install`  
-- `npm run dev`  
+## Content model
+- Data is currently static and seeded for demos (appointments, coordinators, insurance copy). Replace with API calls or CMS content when wiring to real services.
+- External links point to UHCS, MassHealth, and Massachusetts Health Connector resources for accuracy.
+- Upload interactions on `/insurance` are client-side only; connect to secure storage before production use.
 
-Open http://localhost:3000 to view the site.
+## Roadmap ideas
+- Real chat + handoff to live coordinators (SMS/web chat integration).
+- Authenticated profile with saved plans, waivers, and appointment history.
+- Real-time appointment inventory from partner clinics + calendar exports.
+- Localization and accessibility refinements from usability testing.
 
-## Project Structure
-Below is the main project layout:
+## Contributing
+1. Create a branch, make changes, and add tests or storybook entries if relevant.
+2. Run `npm run lint` and `npm run build` before opening a PR.
+3. Document new flows or data contracts in this README to keep the product story clear.
 
-/app  
-/components  
-/lib  
-/public  
-next.config.js  
-package.json  
-tsconfig.json  
-
-- **/app** — main pages and route folders  
-- **/components** — reusable UI components  
-- **/lib** — helper utilities  
-- **/public** — images, icons, static assets  
+## Notes for reviewers
+- This is a course project pointed at a real-world product direction. Messaging is student-focused and Massachusetts-specific; adjust copy if targeting other campuses or states.
