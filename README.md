@@ -43,10 +43,11 @@ CampusCare is a student-first health coverage companion for Northeastern. It kee
 - Authenticated profile with saved plans, waivers, and appointment history.
 - Real-time appointment inventory from partner clinics + calendar exports.
 - Localization and accessibility refinements from usability testing.
+- Create a scam alert and guidance page so users can understand what's a scam and what's not.
 
 ## Contributing
 1. Create a branch, make changes, and add tests or storybook entries if relevant.
-2. Run `npm run lint` and `npm run build` before opening a PR.
+2. Run `npm run build` and test your PR
 3. Document new flows or data contracts in this README to keep the product story clear.
 
 ## Notes for reviewers
