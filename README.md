@@ -24,8 +24,7 @@ CampusCare is a student-first health coverage companion for Northeastern. It kee
 - Prereqs: Node 18+ and npm.
 - Install: `npm install`
 - Run dev server: `npm run dev` then open http://localhost:3000
-- Build for production: `npm run build` (serve with `npm start`).
-- Lint: `npm run lint`
+- Build for production: `npm run build`
 
 ## Repo layout
 - `app/` — route groups for home, appointments, chat, guides, insurance, profile/sign-in.
